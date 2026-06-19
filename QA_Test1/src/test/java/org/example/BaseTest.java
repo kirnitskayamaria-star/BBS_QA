@@ -7,15 +7,14 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 public class BaseTest {
-
     WebDriver driver;
 
     @BeforeMethod
     public void open() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");
-        options.addArguments("headless");
-        driver = new ChromeDriver();
+        options.addArguments("--headless");
+        driver = new ChromeDriver(options);
         driver.get("https://www.saucedemo.com/");
     }
 
