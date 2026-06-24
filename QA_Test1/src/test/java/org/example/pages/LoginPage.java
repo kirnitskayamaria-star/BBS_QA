@@ -10,7 +10,6 @@ public class LoginPage {
     private final By errorMessage = By.xpath("(//h3[@data-test='error'])");
     WebDriver driver;
 
-
     public LoginPage(WebDriver driver) {
         this.driver = driver;
     }

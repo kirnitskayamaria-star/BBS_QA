@@ -14,5 +14,4 @@ public class ProductsPage {
     public String getTitle() {
         return driver.findElement(productsTitle).getText();
     }
-
 }
