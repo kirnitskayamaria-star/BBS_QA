@@ -1,6 +1,7 @@
 package org.example.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class LoginTests extends BaseTest {
@@ -14,35 +15,21 @@ public class LoginTests extends BaseTest {
         Assert.assertEquals(productsPage.getTitle(), "Products", "Products tab did not open.");
     }
 
-    @Test
-    public void negativeEmptyLoginTest() {
-        loginPage.open();
-        loginPage.login("", password);
-        Assert.assertTrue(loginPage.isErrorDisplayed());
-        Assert.assertEquals(loginPage.getErrorMessage(), "Epic sadface: Username is required", "Incorrect or missing error message");
+    @DataProvider(name = "IncorrectLoginData")
+    public Object[][] loginData() {
+        return new Object[][] {
+                {"", "secret_sauce", "Epic sadface: Username is required"},
+                {"standard_user", "", "Epic sadface: Password is required"},
+                {"standard_user", "password", "Epic sadface: Username and password do not match any user in this service" },
+                {"locked_out_user", "secret_sauce", "Epic sadface: Sorry, this user has been locked out."  },
+        };
     }
 
-    @Test
-    public void negativeEmptyPasswordTest() {
+    @Test(dataProvider = "IncorrectLoginData")
+    public void negativeLoginTests(String user, String password, String errorMessage) {
         loginPage.open();
-        loginPage.login(login, "");
+        loginPage.login(user, password);
         Assert.assertTrue(loginPage.isErrorDisplayed());
-        Assert.assertEquals(loginPage.getErrorMessage(), "Epic sadface: Password is required", "Incorrect or missing error message");
-    }
-
-    @Test
-    public void negativeIncorrectPasswordTest() {
-        loginPage.open();
-        loginPage.login(login, "password");
-        Assert.assertTrue(loginPage.isErrorDisplayed());
-        Assert.assertEquals(loginPage.getErrorMessage(), "Epic sadface: Username and password do not match any user in this service", "Incorrect or missing error message");
-    }
-
-    @Test
-    public void negativeLockedUserTest() {
-        loginPage.open();
-        loginPage.login("locked_out_user", password);
-        Assert.assertTrue(loginPage.isErrorDisplayed());
-        Assert.assertEquals(loginPage.getErrorMessage(), "Epic sadface: Sorry, this user has been locked out.", "Incorrect or missing error message");
+        Assert.assertEquals(loginPage.getErrorMessage(), errorMessage);
     }
 }
