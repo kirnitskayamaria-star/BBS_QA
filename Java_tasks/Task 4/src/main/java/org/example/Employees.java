@@ -16,4 +16,10 @@ public class Employees {
     public String getName() {
         return name;
     }
+
+    public static String getWelcomeMessage(Employees male, Employees female) {
+        return "Вчера наша компания пополнилась новыми сотрудниками. " +
+                male.getName() + " нанят на должность " + male.getRole() + ", а " +
+                female.getName() + " нанята в должности: " + female.getRole() + ".";
+    }
 }
