@@ -7,7 +7,6 @@ public class ProductsPage extends BasePage{
     public static final String ADD_TO_CART =
             "//*[text() = '%s']//ancestor::div[@class = 'inventory_item']" +
                     "//child::button[text()='Add to cart']";
-    private final By productsTitle = By.xpath("(//span[@class='title'])");
     private final By counter = By.xpath(DATA_TEST_PATTERN.formatted("shopping-cart-badge"));
 
     public ProductsPage(WebDriver driver) {
@@ -15,12 +14,16 @@ public class ProductsPage extends BasePage{
     }
 
     public String getTitle() {
-        return driver.findElement(productsTitle).getText();
+        return navigationPanel.getElementTitle(PAGE_TITLE);
     }
 
     public void addToCart(String goodsName) {
         By addToCart = By.xpath(ADD_TO_CART.formatted(goodsName));
         driver.findElement(addToCart).click();
+    }
+
+    public void addToCart(int index) {
+        driver.findElements(By.xpath("//*[text()='Add to cart']")).get(index).click();
     }
 
     public String checkCounterColor() {

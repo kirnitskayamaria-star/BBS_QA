@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="2" name="QA_Test1" parallel="none">
+
+    <test name="Chrome">
+        <classes>
+            <class name="org.example.tests.LoginTests"/>
+            <class name="org.example.tests.CheckoutTest"/>
+            <parameter name="browser" value="chrome"></parameter>
+        </classes>
+    </test>
+
+    <test name="Safari">
+        <classes>
+            <class name="org.example.tests.ProductsTest"/>
+            <class name="org.example.tests.BasketTest"></class>
+            <parameter name="browser" value="safari"></parameter>
+        </classes>
+    </test>
+</suite>

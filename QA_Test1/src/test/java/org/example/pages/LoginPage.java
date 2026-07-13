@@ -1,5 +1,6 @@
 package org.example.pages;
 
+import org.example.user.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -13,14 +14,16 @@ public class LoginPage extends BasePage{
         super(driver);
     }
 
-    public void open()  {
+    public LoginPage open()  {
         driver.get(BASE_URL);
+        return this;
     }
 
-    public void login(String login, String password) {
-        driver.findElement(usernameField).sendKeys(login);
-        driver.findElement(passwordField).sendKeys(password);
+    public LoginPage login(User user) {
+        fillInLoginField(user.getName());
+        fillInPasswordField(user.getPassword());
         driver.findElement(submitButton).click();
+        return this;
     }
 
     public boolean isErrorDisplayed() {
@@ -29,5 +32,13 @@ public class LoginPage extends BasePage{
 
     public String getErrorMessage() {
         return driver.findElement(errorMessage).getText();
+    }
+
+    public void fillInLoginField(String login) {
+        driver.findElement(usernameField).sendKeys(login);
+    }
+
+    public void fillInPasswordField(String password) {
+        driver.findElement(passwordField).sendKeys(password);
     }
 }
