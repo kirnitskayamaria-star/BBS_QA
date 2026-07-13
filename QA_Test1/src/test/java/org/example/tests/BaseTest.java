@@ -30,7 +30,7 @@ public class BaseTest {
         productsPage = new ProductsPage(driver);
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void close() {
         driver.quit();
     }
