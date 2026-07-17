@@ -29,5 +29,24 @@ public class UserFactory {
                 PropertyReader.getProperty("saucedemo.lastName"),
                 PropertyReader.getProperty("saucedemo.zipCode"));
     }
+
+    public static UserCheckout getEmptyFirstNameCustomer() {
+        return new UserCheckout("",
+                PropertyReader.getProperty("saucedemo.lastName"),
+                PropertyReader.getProperty("saucedemo.zipCode"));
+    }
+
+    public static UserCheckout getEmptyLastNameCustomer() {
+        return new UserCheckout(PropertyReader.getProperty("saucedemo.firstName"),
+                "",
+                PropertyReader.getProperty("saucedemo.zipCode"));
+    }
+
+    public static UserCheckout getEmptyZipCodeCustomer() {
+        return new UserCheckout(PropertyReader.getProperty("saucedemo.firstName"),
+                PropertyReader.getProperty("saucedemo.lastName"),
+                "");
+    }
+
 }
 

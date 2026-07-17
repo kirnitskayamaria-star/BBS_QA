@@ -1,5 +1,6 @@
 package org.example.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import static org.example.pages.BasePage.DATA_TEST_PATTERN;
@@ -14,18 +15,17 @@ public class NavigationPanel {
         this.driver = driver;
     }
 
+    @Step("Переходим на страницу корзины.")
     public void switchToCart() {
         driver.findElement(cartLink).click();
     }
 
-    public String getElementTitle(By titleLocator) {
-        return driver.findElement(titleLocator).getText();
-    }
-
+    @Step("Переходим на страницу оформления заказа.")
     public void switchToCheckout() {
         driver.findElement(continueShoppingButton).click();
     }
 
+    @Step("Переходим к финальной странице оформления заказа.")
     public void switchToFinish() {
         driver.findElement(finishShoppingButton).click();
     }

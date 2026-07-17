@@ -3,7 +3,6 @@ package org.example.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,14 +15,12 @@ public class BasketPage extends BasePage{
     }
 
     public String getTitle() {
-        return navigationPanel.getElementTitle(PAGE_TITLE);
+        return driver.findElement(PAGE_TITLE).getText();
     }
 
     public ArrayList<String> getProductsName() {
         List<WebElement> allProducts = driver.findElements(goodsTitle);
-
         ArrayList<String> names = new ArrayList<>();
-
         for(WebElement product: allProducts) {
             names.add(product.getText());
         }

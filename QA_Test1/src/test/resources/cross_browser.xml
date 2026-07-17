@@ -6,6 +6,7 @@
         <classes>
             <class name="org.example.tests.LoginTests"/>
             <class name="org.example.tests.CheckoutTest"/>
+            <class name="org.example.tests.CheckoutOverviewTest"/>
             <parameter name="browser" value="chrome"></parameter>
         </classes>
     </test>
