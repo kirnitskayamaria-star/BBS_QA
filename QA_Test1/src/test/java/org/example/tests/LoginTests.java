@@ -1,34 +1,45 @@
 package org.example.tests;
-
+import io.qameta.allure.*;
+import org.example.user.User;
+import org.example.utils.TestListener;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import static org.example.enums.TitleNaming.PRODUCTS;
+import static org.example.user.UserFactory.*;
 
+@Epic("Тестирование онлайн-магазина Saucedemo")
+@Feature("Тестирование страницы авторизации.")
 public class LoginTests extends BaseTest {
-    private static final String login = "standard_user";
-    private static final String password = "secret_sauce";
 
-    @Test
+    @Story("Ввод персональных данных")
+    @Severity(SeverityLevel.BLOCKER)
+    @TmsLink("BBS_QA")
+    @Test(description = "Проверка корректной авторизации", priority = 1)
     public void positiveLoginTest() {
-        loginPage.open();
-        loginPage.login(login, password);
-        Assert.assertEquals(productsPage.getTitle(), "Products", "Products tab did not open.");
+        loginPage
+                .open()
+                .login(withAdminPermission());
+        Assert.assertEquals(productsPage.getTitle(), PRODUCTS.getDisplayName(), "Заголовок страницы не соответствует");
     }
 
     @DataProvider(name = "IncorrectLoginData")
     public Object[][] loginData() {
         return new Object[][] {
-                {"", "secret_sauce", "Epic sadface: Username is required"},
-                {"standard_user", "", "Epic sadface: Password is required"},
-                {"standard_user", "password", "Epic sadface: Username and password do not match any user in this service" },
-                {"locked_out_user", "secret_sauce", "Epic sadface: Sorry, this user has been locked out."  },
+                {withEmptyLoginPermission(), "Epic sadface: Username is required"},
+                {withEmptyPasswordPermission(), "Epic sadface: Password is required"},
+                {withIncorrectPasswordPermission(), "Epic sadface: Username and password do not match any user in this service" },
+                {withLockedUserPermission(), "Epic sadface: Sorry, this user has been locked out."  },
         };
     }
 
-    @Test(dataProvider = "IncorrectLoginData")
-    public void negativeLoginTests(String user, String password, String errorMessage) {
-        loginPage.open();
-        loginPage.login(user, password);
+    @Story("Ввод персональных данных")
+    @TmsLink("BBS_QA")
+    @Test(dataProvider = "IncorrectLoginData", description = "Проверка корректной авторизации", priority = 1)
+    public void negativeLoginTests(User user, String errorMessage) {
+        loginPage
+                .open()
+                .login(user);
         Assert.assertTrue(loginPage.isErrorDisplayed());
         Assert.assertEquals(loginPage.getErrorMessage(), errorMessage);
     }
