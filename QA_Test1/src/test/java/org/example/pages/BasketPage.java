@@ -9,7 +9,6 @@ import java.util.List;
 public class BasketPage extends BasePage{
     private final By goodsTitle = By.cssSelector(".inventory_item_name");
 
-
     public BasketPage(WebDriver driver) {
         super(driver);
     }
@@ -40,5 +39,4 @@ public class BasketPage extends BasePage{
         }
         return false;
     }
-
 }

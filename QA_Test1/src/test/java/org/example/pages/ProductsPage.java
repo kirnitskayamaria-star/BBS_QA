@@ -34,6 +34,7 @@ public class ProductsPage extends BasePage{
     public String checkCounterColor() {
         return driver.findElement(counter).getCssValue("background-color");
     }
+
     @Step("Проверяем текущее значение счетчика корзины.")
     public String checkCounterValue() {
         return driver.findElement(counter).getText();

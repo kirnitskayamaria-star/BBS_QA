@@ -7,18 +7,22 @@ public class UserFactory {
         return new User(PropertyReader.getProperty("saucedemo.user"),
                 PropertyReader.getProperty("saucedemo.password"));
     }
+
     public static User withLockedUserPermission() {
         return new User(PropertyReader.getProperty("saucedemo.locked_user"),
                 PropertyReader.getProperty("saucedemo.password"));
     }
+
     public static User withEmptyLoginPermission() {
         return new User("",
                 PropertyReader.getProperty("saucedemo.incorrect_password"));
     }
+
     public static User withEmptyPasswordPermission() {
         return new User(PropertyReader.getProperty("saucedemo.user"),
                 "");
     }
+
     public static User withIncorrectPasswordPermission() {
         return new User(PropertyReader.getProperty("saucedemo.user"),
                 PropertyReader.getProperty("saucedemo.incorrect_password"));
@@ -47,6 +51,4 @@ public class UserFactory {
                 PropertyReader.getProperty("saucedemo.lastName"),
                 "");
     }
-
 }
-
