@@ -1,10 +1,10 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import user.User;
+import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -24,13 +24,12 @@ public class LoginPage {
 
     @Step("Логинимся под кредами пользователя.")
     public LoginPage login(User user) {
-        buttonEnter.shouldBe(Condition.visible, Condition.enabled).click();
+        buttonEnter.shouldBe(Condition.visible, enabled).click();
         buttonPasswordEnter.shouldBe(Condition.visible).click();
         buttonPasswordEnterNew.shouldBe(Condition.visible).click();
         fillEmailField(user.getEmail());
         fillPasswordField(user.getPassword());
-        Selenide.sleep(1500);
-        buttonSubmit.click();
+        buttonSubmit.shouldBe(enabled).click();
         return this;
     }
 
