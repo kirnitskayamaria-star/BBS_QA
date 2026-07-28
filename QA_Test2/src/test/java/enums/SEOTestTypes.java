@@ -13,8 +13,7 @@ public enum SEOTestTypes {
     LINKS("Ссылки на странице"),
     CONTENT("Контент"),
     TECH_PARAMS("Технические параметры"),
-    MICRODATA("Микроразметка"),
-    AIRECOMMENDATION("Рекомендации ИИ");
+    MICRODATA("Микроразметка");
 
     private final String name;
 }

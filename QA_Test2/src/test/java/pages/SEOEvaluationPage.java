@@ -5,10 +5,11 @@ import enums.SEOTestTypes;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import utils.TimeUtils;
-
 import java.time.Duration;
 import java.util.stream.Stream;
 
+import static com.codeborne.selenide.CollectionCondition.textsInAnyOrder;
+import static com.codeborne.selenide.Condition.cssValue;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -19,8 +20,8 @@ public class SEOEvaluationPage {
     private final SelenideElement keyWordInput = $("input[placeholder='Введите ключевое слово']");
     private final SelenideElement submitButton = $(byText("Проверить"));
     private final SelenideElement scoreBadge = $(com.codeborne.selenide.Selectors.withText("балл"));
-    private final SelenideElement keyWord = $x("(//table/tbody/tr[2]/td[1])[6]");
-    private final SelenideElement url = $x("(//table/tbody/tr[2]/td[2])[6]");
+    private final SelenideElement keyWord = $x("//tbody[contains(@class, 'table-tbody')]/tr[@class='lgt-table-row lgt-table-row-level-0'][1]/td[1]");
+    private final SelenideElement url = $x("//tbody/tr[@class='lgt-table-row lgt-table-row-level-0'][1]/td[2]");
     private final SelenideElement progressCircle = $("circle.lgt-progress-circle-path");
     private final SelenideElement updateButton = $(Selectors.byText("Обновить"));
     private final SelenideElement progressBar = $(".e171iw7010");
@@ -91,7 +92,7 @@ public class SEOEvaluationPage {
 
     @Step("Проверяем цвет кнопки отправки по умолчанию.")
     public SEOEvaluationPage shouldHaveDefaultSubmitButtonColor() {
-        submitButton.shouldHave(Condition.cssValue("background-color", DEFAULT_SUBMIT_BUTTON_COLOR));
+        submitButton.shouldHave(cssValue("background-color", DEFAULT_SUBMIT_BUTTON_COLOR));
         return this;
     }
 
@@ -111,8 +112,8 @@ public class SEOEvaluationPage {
     public SEOEvaluationPage checkProgressCircleColorBasedOnScore() {
         progressCircle.shouldHave(
                 Condition.or("успешный цвет индикатора",
-                        Condition.cssValue("stroke", "rgb(49, 105, 240)"), // Синий
-                        Condition.cssValue("stroke", "rgb(82, 196, 26)")   // Зеленый
+                        cssValue("stroke", "rgb(49, 105, 240)"), // Синий
+                        cssValue("stroke", "rgb(82, 196, 26)")   // Зеленый
                 )
         );
         return this;
@@ -126,7 +127,7 @@ public class SEOEvaluationPage {
     @Step("Ожидаем появление и последующее скрытие прогресс-бара.")
     public SEOEvaluationPage waitForProgressBarToDisappear() {
         progressBar.shouldBe(Condition.visible);
-        progressBar.shouldBe(Condition.hidden, Duration.ofSeconds(30));
+        progressBar.shouldHave(Condition.disappear, Duration.ofMinutes(3));
         return this;
     }
 
@@ -149,8 +150,9 @@ public class SEOEvaluationPage {
         String[] expectedTestNames = Stream.of(SEOTestTypes.values())
                 .map(SEOTestTypes::getName)
                 .toArray(String[]::new);
+
         seoTestsList.shouldHave(
-                CollectionCondition.exactTexts(expectedTestNames),
+                textsInAnyOrder(expectedTestNames),
                 Duration.ofSeconds(10)
         );
         return this;

@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class MainPage {
-    private final SelenideElement pageTitle = $x("(//h3)");
+    private final SelenideElement pageTitle = $x("//h3");
     private final SelenideElement seoEvaluation = $(byText("SEO анализ страницы сайта"));
 
 
