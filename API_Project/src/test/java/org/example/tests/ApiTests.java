@@ -11,7 +11,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.StringContains.containsString;
 
 public class ApiTests extends BaseTest {
-    String taskId = "6a6cf3fca687255edc00e6d3";
+    private final String taskId = "6a6cf3fca687255edc00e6d3";
 
     @Test
     public void getBalance() {
@@ -34,7 +34,7 @@ public class ApiTests extends BaseTest {
                 .then()
                 .log()
                 .all()
-                .statusCode(400) // Ожидаем 400 Bad Request
+                .statusCode(400)
                 .header("content-type", containsString("application/json"))
                 .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("schemas/error-schema.json"));
     }
