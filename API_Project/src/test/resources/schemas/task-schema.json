@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org",
+  "title": "TaskResponseSchema",
+  "type": "object",
+  "required": ["taskId", "newKeywordsCount"],
+  "additionalProperties": false,
+  "properties": {
+    "taskId": {
+      "type": "string"
+    },
+    "newKeywordsCount": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

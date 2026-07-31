@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org",
+  "title": "UserBalance",
+  "type": "object",
+  "required": ["balance"],
+  "additionalProperties": false,
+  "properties": {
+    "balance": {
+      "type": "number"
+    }
+  }
+}

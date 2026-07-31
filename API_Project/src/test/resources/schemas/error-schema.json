@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org",
+  "title": "UniversalErrorSchema",
+  "type": "object",
+  "anyOf": [
+    {
+      "required": ["error"],
+      "additionalProperties": false,
+      "properties": {
+        "error": { "type": "string" }
+      }
+    },
+    {
+      "required": ["errors"],
+      "additionalProperties": false,
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  ]
+}
