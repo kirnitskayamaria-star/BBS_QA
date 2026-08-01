@@ -11,7 +11,6 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.StringContains.containsString;
 
 public class ApiTests extends BaseTest {
-    private final String taskId = "6a6cf3fca687255edc00e6d3";
 
     @Test
     public void getBalance() {
@@ -92,6 +91,7 @@ public class ApiTests extends BaseTest {
 
     @Test
     public void getTaskStatus() {
+        String taskId = createAndGetTaskId();
         given().queryParam("key", ApiConfig.API_KEY)
                 .when()
                 .get("/task/status/" + taskId)
@@ -118,6 +118,7 @@ public class ApiTests extends BaseTest {
 
     @Test
     public void getTaskResultInsufficientFunds() {
+        String taskId = createAndGetTaskId();
         given().queryParam("key", ApiConfig.API_KEY)
                 .when()
                 .get("/task/result/" + taskId)
@@ -127,5 +128,22 @@ public class ApiTests extends BaseTest {
                 .header("content-type", containsString("application/json"))
                 .statusCode(404)
                 .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("schemas/error-schema.json"));
+    }
+
+    private String createAndGetTaskId() {
+        return given()
+                .queryParam("key", ApiConfig.API_KEY)
+                .formParam("keywords[]", List.of("тест 1", "тест 2"))
+                .formParam("engine", "google")
+                .formParam("device", "desktop")
+                .formParam("language", "ru")
+                .formParam("regionId", 0)
+                .formParam("top", 50)
+                .when()
+                .post("/task/create")
+                .then()
+                .statusCode(200)
+                .extract()
+                .path("taskId");
     }
 }
