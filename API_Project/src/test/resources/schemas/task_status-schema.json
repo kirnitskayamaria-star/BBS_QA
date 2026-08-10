@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TaskStatus",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string"
+    },
+    "created": {
+      "type": "string"
+    },
+    "started": {
+      "type": ["string", "null"]
+    },
+    "updated": {
+      "type": ["string", "null"]
+    },
+    "engine": {
+      "type": "string"
+    },
+    "regionId": {
+      "type": ["string", "integer", "number"]
+    },
+    "device": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "newKeywordsCount": {
+      "type": "number"
+    },
+    "checkedKeywordsCount": {
+      "type": "number"
+    },
+    "amount": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "status",
+    "created",
+    "started",
+    "updated",
+    "engine",
+    "regionId",
+    "device",
+    "language",
+    "newKeywordsCount",
+    "checkedKeywordsCount",
+    "amount"
+  ]
+}
